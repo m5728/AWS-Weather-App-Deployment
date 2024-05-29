@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Retrieve API key from SSM Parameter Store
-API_KEY=$(aws ssm get-parameter --name WEATHER_API_KEY --query "Parameter.Value" --region "YOUR_REGION" --output text)
+API_KEY=$(aws ssm get-parameter --name "WEATHER_API_KEY" --query "Parameter.Value" --region "your-region" --output text)
 
 # Check if the API key was successfully retrieved
 if [ -z "$API_KEY" ]; then
