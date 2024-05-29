@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
-const axios = require('axios')
-const bodyParser = require('body-parser')
+const axios = require('axios');
+const bodyParser = require('body-parser');
 
 const API_KEY = process.env.API_KEY;  
 
@@ -22,11 +22,6 @@ app.post('/getWeather', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error fetching weather data' });
   }
-});
-
-// Handles any requests that don't match the ones above
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/my-app/build/index.html'));
 });
 
 app.listen(port, () => {
