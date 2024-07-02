@@ -1,0 +1,38 @@
+name: Deploy MERN App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install frontend dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Build React app
+        run: |
+          cd client
+          npm run build
+
+      - name: Deploy frontend to S3
+        run: |
+          aws s3 sync client/build/ s3://bucket-name --delete
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Deploy backend to EC2
+        run: |
+          scp -r . ec2-user@your-ec2-ip:/path/to/your/app
+          ssh ec2-user@your-ec2-ip 'cd /path/to/your/app && npm install'
